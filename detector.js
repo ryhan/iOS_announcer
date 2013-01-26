@@ -2,8 +2,13 @@ $(window).load(function() {
 
 WebSpeech.setVoice('en');
 
-$('footer').bind("touchstart", function(){
+no_voice = false;
+
+$('footer').bind("touchstart", function(e){
   WebSpeech.pause();
+  $(e.currentTarget).hide();
+  $('.reading').removeClass('reading');
+  no_voice = true;
 });
 
 var vector = function(x,y){
@@ -40,7 +45,7 @@ if ( window.DeviceMotionEvent != undefined )
     if (flat_for > 10){ $('body').addClass('flat');}
     else{  $('body').removeClass('flat');}
 
-    if (flat_for == 10 && flat== true){
+    if (flat_for == 10 && flat== true && no_voice== false){
       
       var text = $(last_p).text();
 
@@ -54,12 +59,6 @@ if ( window.DeviceMotionEvent != undefined )
       WebSpeech.stop();
     }
 
-
-    if (flat == true && was_not_flat){
-
-
-    }
-    //$('#report').text(flat);
   }
 }
 
